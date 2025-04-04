@@ -4,6 +4,7 @@ import {Canvas, Rect} from "fabric";
 import {CircleChevronUp, ImagePlus, Type} from "lucide-react";
 import {handleImageUploads} from "../utils/Image.ts";
 import {Toaststate} from "../utils/Toast.ts";
+import {initializeCanvas} from "../utils/Canvas.ts";
 
 export const Route = createFileRoute('/')({
   component: Index,
@@ -12,7 +13,7 @@ export const Route = createFileRoute('/')({
 function Index() {
   const canvasRef = useRef(null);
   const [canvas, setCanvas] = useState<Canvas | null>(null);
-  const fileInputRef = useRef(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [toast, setToast] = useState<Toaststate>({message: '', type: null})
 
   useEffect(() => {
@@ -26,14 +27,7 @@ function Index() {
 
   useEffect(() => {
     if(canvasRef.current) {
-      const initCanvas = new Canvas(canvasRef.current, {
-        width:window.innerWidth,
-        height:window.innerHeight
-      });
-
-      initCanvas.backgroundColor = "#fff";
-      initCanvas.renderAll();
-
+      const initCanvas = initializeCanvas(canvasRef.current)
       setCanvas(initCanvas)
 
       return () => {
@@ -55,10 +49,6 @@ function Index() {
 
       canvas.add(rect)
     }
-  }
-
-  const ImportImages = () => {
-    console.log("importImages");
   }
 
   const OpenTextMenu = () => {
