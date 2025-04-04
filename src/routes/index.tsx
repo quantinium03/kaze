@@ -1,6 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 import {useEffect, useRef, useState} from "react";
 import {Canvas, Rect} from "fabric";
+import {CircleChevronUp, ImagePlus, Type} from "lucide-react";
 
 export const Route = createFileRoute('/')({
   component: Index,
@@ -23,7 +24,7 @@ function Index() {
       setCanvas(initCanvas)
 
       return () => {
-        initCanvas.dispose();
+        initCanvas.dispose(); // Synchronous call, no Promise
         console.log('Canvas disposed');
       };
     }
@@ -42,10 +43,28 @@ function Index() {
       canvas.add(rect)
     }
   }
+
+  const ImportImages = () => {
+    console.log("importImages");
+  }
+
+  const OpenTextMenu = () => {
+    console.log("Open Text Menu")
+  }
+
+  const OpenShapesMenu = () => {
+    console.log("Open shapes")
+    addRectangle();
+  }
+
   return (
       <div className="text-center font-serif flex items-center justify-start flex-col px-[100px] py-[16px] bg-gray-200 min-h-[100vh] h-full">
-        <div>
-          <button onClick={addRectangle}>button</button>
+        <div className="fixed bottom-1 left-[50%] z-1 ">
+          <div className="flex gap-3 border-[1px] border-black p-1 rounded-lg">
+            <button onClick={ImportImages}><ImagePlus size={20} /></button>
+            <button onClick={OpenTextMenu}><Type size={20} /></button>
+            <button onClick={OpenShapesMenu}><CircleChevronUp size={20}/></button>
+          </div>
         </div>
         <canvas id="canvas" ref={canvasRef} />
       </div>
