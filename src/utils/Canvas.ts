@@ -1,5 +1,5 @@
 import {Canvas, Group, Line} from "fabric";
-import {BACKGROUND_COLOR} from "../consts.ts";
+import {BACKGROUND_COLOR, GRIDLINES_COLOR} from "../consts.ts";
 
 export const initializeCanvas = (canvasElement: HTMLCanvasElement) => {
     const canvas = new Canvas(canvasElement, {
@@ -13,7 +13,7 @@ export const initializeCanvas = (canvasElement: HTMLCanvasElement) => {
 
     for (let x = 0; x <= canvas.getWidth(); x += gridSize) {
         const line = new Line([x, 0, x, canvas.getHeight()], {
-            stroke: '#ccc',
+            stroke: GRIDLINES_COLOR,
             strokeWidth: 1,
             selectable: false,
             evented: false,
@@ -23,7 +23,7 @@ export const initializeCanvas = (canvasElement: HTMLCanvasElement) => {
 
     for (let y = 0; y <= canvas.getHeight(); y += gridSize) {
         const line = new Line([0, y, canvas.getWidth(), y], {
-            stroke: '#ccc',
+            stroke: GRIDLINES_COLOR,
             strokeWidth: 1,
             selectable: false,
             evented: false,
